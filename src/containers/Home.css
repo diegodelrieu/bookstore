@@ -1,0 +1,68 @@
+.Home .books h4 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  overflow: hidden;
+  line-height: 1.5;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.Home .books p {
+  color: #666;
+}
+
+.card-product {
+  position: relative;
+  overflow: hidden;
+  height: 18em;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  display: flex;
+  margin: 1em;
+}
+
+.card-product img {
+  height: 16em;
+  width: 12em;
+  object-fit: cover;
+  margin-left: 10px;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.card-product h2 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.card-product p {
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: .7;
+  margin-bottom: 0;
+  margin-top: 8px;
+}
+
+.card-product .card-product-infos {
+  padding: 16px;
+}
+
+.btn {
+  padding: 8px;
+  background-color: #4D6CFA;
+  color: white;
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+}
+
+.price-tag {
+  padding: 6px;
+  border-radius: 4px;
+  background-color: orange;
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+}
