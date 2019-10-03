@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { Nav, Navbar, NavItem } from "react-bootstrap";
+import { Nav, Navbar, NavItem, Badge } from "react-bootstrap";
 import "./App.css";
 import Routes from "./Routes";
 import { LinkContainer } from "react-router-bootstrap";
@@ -45,6 +45,13 @@ class App extends Component {
     this.setState({ selectedBooks })
   }
 
+  userHasDeletedBook = book => {
+    let index = this.state.selectedBooks.indexOf(book)
+    const selectedBooks = this.state.selectedBooks.splice(index, 1)
+    this.setState({ selectedBooks })
+    console.log(this.state.selectedBooks)
+  }
+
   handleLogout = async event => {
     await Auth.signOut();
   
@@ -58,7 +65,8 @@ class App extends Component {
       isAuthenticated: this.state.isAuthenticated,
       userHasAuthenticated: this.userHasAuthenticated,
       userHasAddedBook: this.userHasAddedBook,
-      books: this.state.selectedBooks
+      books: this.state.selectedBooks,
+      userHasDeletedBook: this.userHasDeletedBook
     };
   
     return (
@@ -80,6 +88,9 @@ class App extends Component {
                     <LinkContainer to="/cart">
                     <NavItem>
                       <FontAwesomeIcon icon='shopping-cart'/>
+                      <Badge pill variant="danger" className="mr-5">
+                        {this.state.selectedBooks.length}
+                      </Badge>
                     </NavItem>
                     </LinkContainer>      
                 </Fragment>  

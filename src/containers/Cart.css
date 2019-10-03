@@ -9,3 +9,30 @@
 .Cart .books p {
   color: #666;
 }
+
+.list-itm {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.delete-btn {
+  position: absolute;
+  right: 15px;
+  top: 5px;
+}
+
+#footer {
+  position: absolute;
+  bottom: 20px;
+}
+
+.total-container {
+  position: relative;
+}
+
+.total {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-weight: bold;
+}
