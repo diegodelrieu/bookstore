@@ -11,14 +11,14 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 
 library.add(faShoppingCart)
 
-
 class App extends Component {
   constructor(props) {
     super(props);
   
     this.state = {
       isAuthenticated: false,
-      isAuthenticating: true
+      isAuthenticating: true,
+      selectedBooks: []
     };
   }
 
@@ -40,6 +40,11 @@ class App extends Component {
     this.setState({ isAuthenticated: authenticated });
   }
 
+  userHasAddedBook = book => {
+    const selectedBooks = this.state.selectedBooks.concat(book)
+    this.setState({ selectedBooks })
+  }
+
   handleLogout = async event => {
     await Auth.signOut();
   
@@ -51,7 +56,9 @@ class App extends Component {
   render() {
     const childProps = {
       isAuthenticated: this.state.isAuthenticated,
-      userHasAuthenticated: this.userHasAuthenticated
+      userHasAuthenticated: this.userHasAuthenticated,
+      userHasAddedBook: this.userHasAddedBook,
+      books: this.state.selectedBooks
     };
   
     return (
