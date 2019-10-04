@@ -42,17 +42,13 @@ If you get an answer like this, it means that `Node.js` is installed and you may
 
 If `Node.js` or `NPM` is not installed you can install them on [this link](https://nodejs.org/en/)
 
-Don't forget to update `NPM` after installing `Node.js`:
-
-```sh
-npm install npm@latest -g
-```
 
 ### Then start the Henri Pottier Bookstore
 
 It will be run on your localhost:3000
 
 ```sh
+npm install
 npm start
 ```
 
