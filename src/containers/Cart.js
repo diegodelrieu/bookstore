@@ -49,7 +49,7 @@ export default class Cart extends Component {
   renderBooksList() {
     return [{}].concat(this.state.books).map(
       (book) =>
-      this.state.books.length > 0 
+        this.state.books.length > 0 
           ? 
             book.price !== undefined ?
             <div>
@@ -73,8 +73,8 @@ export default class Cart extends Component {
         <PageHeader>Cart</PageHeader>
         <ListGroup>
           {this.renderBooksList(this.state.books)}
-          <ListGroupItem className="list-itm discount" header={"discount"}>
-            <div className="price">{this.state.bestOffer + "€"}</div>
+          <ListGroupItem className="list-itm discount" header={"Discount"}>
+            <div className="price">{`-${this.state.bestOffer}€`}</div>
           </ListGroupItem>
         </ListGroup>
         <div id="footer">  
