@@ -1,12 +1,7 @@
 import React, { Component } from "react";
-import axios from 'axios';
+import axios from "axios";
 import { Navbar, NavbarBrand, PageHeader, ListGroup, ListGroupItem } from "react-bootstrap";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes } from '@fortawesome/fontawesome-free-solid'
-import { library } from "@fortawesome/fontawesome-svg-core";
 import "./Cart.css"
-
-library.add(faTimes)
 
 export default class Cart extends Component {
   constructor(props) {
@@ -15,7 +10,8 @@ export default class Cart extends Component {
     this.state = {
       books: [],
       offers: [],
-      total: 0
+      total: 0,
+      bestOffer: 0
     }
   }
 
@@ -26,25 +22,27 @@ export default class Cart extends Component {
     } catch (e) {
       console.log(e);
     } 
-    this.setState({ total: this.getBestOffer()}) 
+    this.setState({ bestOffer: this.getBestOffer()}) 
   }
 
   getBestOffer() {
     const total = this.state.books.reduce((acc, book) => acc += book.price, 0)
+    this.setState({ total })
+
     let percentageDiscount
     let minusDiscount
     let sliceDiscount  
 
-    this.state.offers[0] ? percentageDiscount = total * (1 - (this.state.offers[0].value / 100)) : percentageDiscount = Infinity
-    this.state.offers[1] ? minusDiscount = total - this.state.offers[1].value : minusDiscount = Infinity
-    this.state.offers[2] ? sliceDiscount = total - (Math.floor(total/this.state.offers[2].sliceValue) * this.state.offers[2].value) : sliceDiscount = Infinity
-    return Math.min(percentageDiscount, minusDiscount, sliceDiscount) 
+    this.state.offers[0] ? percentageDiscount = total - total * (1 - (this.state.offers[0].value / 100)) : percentageDiscount = 0
+    this.state.offers[1] ? minusDiscount = this.state.offers[1].value : minusDiscount = 0
+    this.state.offers[2] ? sliceDiscount = Math.floor(total/this.state.offers[2].sliceValue) * this.state.offers[2].value : sliceDiscount = 0
+    return Math.max(percentageDiscount, minusDiscount, sliceDiscount) 
   }
   
   getCommercialOffers() {
     const books = this.state.books.concat(this.props.books)
     this.setState({ books })
-    const isbn = books.map((book) => book.isbn).join(',')
+    const isbn = books.map((book) => book.isbn).join(",")
     return axios.get(`http://henri-potier.xebia.fr/books/${isbn}/commercialOffers`);
   }
 
@@ -55,15 +53,12 @@ export default class Cart extends Component {
           ? 
             book.price !== undefined ?
             <div>
-              <ListGroupItem className='list-itm' header={book.title}>
-                {"Price: " + book.price}
-                <div className='delete-btn' onClick={() => this.deleteBook(book)}>
-                  <FontAwesomeIcon  icon='times'/>
-                </div>
+              <ListGroupItem className="list-itm" header={book.title} key={book.isbn}>
+                <div className="price">{book.price + "€"}</div>
               </ListGroupItem>
             </div>
             :
-            ''
+            ""
           : 
             <h4>
               <b>{"\uFF0B"}</b> Your cart is empty !
@@ -71,9 +66,6 @@ export default class Cart extends Component {
     );
   }
 
-  deleteBook(book) {
-    this.props.userHasDeletedBook(book)
-  }
 
   render() {
     return(
@@ -81,12 +73,15 @@ export default class Cart extends Component {
         <PageHeader>Cart</PageHeader>
         <ListGroup>
           {this.renderBooksList(this.state.books)}
+          <ListGroupItem className="list-itm discount" header={"discount"}>
+            <div className="price">{this.state.bestOffer + "€"}</div>
+          </ListGroupItem>
         </ListGroup>
         <div id="footer">  
-            <Navbar className="total-container">
-              <NavbarBrand>Total</NavbarBrand>
-              <p className="total">{this.state.total === Infinity ? 0 + '€' : this.state.total}</p>
-            </Navbar>
+          <Navbar className="total-container">
+            <NavbarBrand>Total</NavbarBrand>
+            <div className="price">{this.state.total - this.state.bestOffer + "€"}</div>
+          </Navbar>
         </div>
       </div>
     )

@@ -15,12 +15,6 @@
   margin-bottom: 10px;
 }
 
-.delete-btn {
-  position: absolute;
-  right: 15px;
-  top: 5px;
-}
-
 #footer {
   position: absolute;
   bottom: 20px;
@@ -30,7 +24,8 @@
   position: relative;
 }
 
-.total {
+
+.price {
   position: absolute;
   right: 10px;
   top: 10px;

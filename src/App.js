@@ -5,8 +5,8 @@ import "./App.css";
 import Routes from "./Routes";
 import { LinkContainer } from "react-router-bootstrap";
 import { Auth } from "aws-amplify";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faShoppingCart } from '@fortawesome/fontawesome-free-solid'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faShoppingCart } from "@fortawesome/fontawesome-free-solid"
 import { library } from "@fortawesome/fontawesome-svg-core";
 
 library.add(faShoppingCart)
@@ -28,7 +28,7 @@ class App extends Component {
       this.userHasAuthenticated(true);
     }
     catch(e) {
-      if (e !== 'No current user') {
+      if (e !== "No current user") {
         alert(e);
       }
     }
@@ -75,7 +75,7 @@ class App extends Component {
         <Navbar fluid collapseOnSelect>
           <Navbar.Header>
             <Navbar.Brand>
-              <Link to="/">Poudl'Amazon</Link>
+              <Link to="/">Poudl"Amazon</Link>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
@@ -87,7 +87,7 @@ class App extends Component {
                   <NavItem onClick={this.handleLogout}>Logout</NavItem>
                     <LinkContainer to="/cart">
                     <NavItem>
-                      <FontAwesomeIcon icon='shopping-cart'/>
+                      <FontAwesomeIcon icon="shopping-cart"/>
                       <Badge pill variant="danger" className="mr-5">
                         {this.state.selectedBooks.length}
                       </Badge>
