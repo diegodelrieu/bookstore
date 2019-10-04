@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Navbar, NavbarBrand, PageHeader, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Navbar, NavbarBrand, ListGroup, ListGroupItem } from "react-bootstrap";
 import "./Cart.css"
 
 export default class Cart extends Component {
@@ -48,12 +48,13 @@ export default class Cart extends Component {
 
   renderBooksList() {
     return [{}].concat(this.state.books).map(
-      (book) =>
+      (book, i) =>
         this.state.books.length > 0 
           ? 
             book.price !== undefined ?
             <div>
-              <ListGroupItem className="list-itm" header={book.title} key={book.isbn}>
+              <ListGroupItem className="list-itm" key={i}>
+                {book.title}
                 <div className="price">{book.price + "€"}</div>
               </ListGroupItem>
             </div>
@@ -70,19 +71,18 @@ export default class Cart extends Component {
   render() {
     return(
       <div className="books">
-        <PageHeader>Cart</PageHeader>
+        <h1>Cart</h1>
         <ListGroup>
           {this.renderBooksList(this.state.books)}
-          <ListGroupItem className="list-itm discount" header={"Discount"}>
+          <ListGroupItem className="list-itm discount mt-5" variant="success">
+            {"Discount"}
             <div className="price">{`-${this.state.bestOffer}€`}</div>
           </ListGroupItem>
-        </ListGroup>
-        <div id="footer">  
-          <Navbar className="total-container">
-            <NavbarBrand>Total</NavbarBrand>
+          <ListGroupItem className="total-container" variant="info">
+          Total
             <div className="price">{this.state.total - this.state.bestOffer + "€"}</div>
-          </Navbar>
-        </div>
+          </ListGroupItem>
+        </ListGroup>
       </div>
     )
   }

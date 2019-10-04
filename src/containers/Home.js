@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { PageHeader, ListGroup } from "react-bootstrap";
+import { ListGroup, Button } from "react-bootstrap";
 import "./Home.css";
 import axios from "axios";
 
@@ -22,7 +22,7 @@ export default class Home extends Component {
         <div className="card-product-infos">
           <h2>{book.title}</h2>
           <p>{book.synopsis}</p>
-          <div className="btn" onClick={() => this.addToBasket(book)}>Add to basket</div>
+          <Button variant="outline-primary" onClick={() => this.addToBasket(book)}>Add to basket</Button>
           <div className="price-tag">{book.price}€</div>
         </div>
       </div>
@@ -55,7 +55,7 @@ export default class Home extends Component {
   render() {
     return (
       <div className="books">
-        <PageHeader>Books</PageHeader>
+        <h1>Books</h1>
         <ListGroup>
           {!this.state.isLoading && this.renderBooksList(this.state.books)}
         </ListGroup>

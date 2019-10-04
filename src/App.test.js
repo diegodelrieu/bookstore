@@ -1,10 +1,13 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import { BrowserRouter as Router } from 'react-router-dom';
+import React from 'react';
+import Adapter from 'enzyme-adapter-react-16';
+import { shallow, configure } from 'enzyme';
+import App from './App';
+import Home from './containers/Home';
 
-it("renders without crashing", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<Router><App /></Router>, div);
-  ReactDOM.unmountComponentAtNode(div);
+configure({adapter: new Adapter()});
+
+describe('Renders App component', () => {
+  it('renders without crashing', () => {
+     shallow(<App />);
+   });
 });

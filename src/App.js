@@ -32,7 +32,6 @@ class App extends Component {
         alert(e);
       }
     }
-  
     this.setState({ isAuthenticating: false });
   }
   
@@ -43,13 +42,6 @@ class App extends Component {
   userHasAddedBook = book => {
     const selectedBooks = this.state.selectedBooks.concat(book)
     this.setState({ selectedBooks })
-  }
-
-  userHasDeletedBook = book => {
-    let index = this.state.selectedBooks.indexOf(book)
-    const selectedBooks = this.state.selectedBooks.splice(index, 1)
-    this.setState({ selectedBooks })
-    console.log(this.state.selectedBooks)
   }
 
   handleLogout = async event => {
@@ -65,34 +57,31 @@ class App extends Component {
       isAuthenticated: this.state.isAuthenticated,
       userHasAuthenticated: this.userHasAuthenticated,
       userHasAddedBook: this.userHasAddedBook,
-      books: this.state.selectedBooks,
-      userHasDeletedBook: this.userHasDeletedBook
+      books: this.state.selectedBooks
     };
   
     return (
       !this.state.isAuthenticating &&
       <div className="App container">
-        <Navbar fluid collapseOnSelect>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <Link to="/">Poudl"Amazon</Link>
-            </Navbar.Brand>
-            <Navbar.Toggle />
-          </Navbar.Header>
-          <Navbar.Collapse>
-            <Nav pullRight>
+        <Navbar bg="light" expand="lg" className="my-3">
+          <LinkContainer to="/">
+            <Navbar.Brand >Poudl"Amazon</Navbar.Brand>
+          </LinkContainer>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse className="justify-content-end">
+            <Nav >
               {this.state.isAuthenticated
                 ? 
                 <Fragment>
+                  <LinkContainer to="/cart">
+                  <NavItem>
+                    <FontAwesomeIcon icon="shopping-cart"/>
+                    <Badge pill variant="danger" className="mr-5">
+                      {this.state.selectedBooks.length}
+                    </Badge>
+                  </NavItem>
+                  </LinkContainer>      
                   <NavItem onClick={this.handleLogout}>Logout</NavItem>
-                    <LinkContainer to="/cart">
-                    <NavItem>
-                      <FontAwesomeIcon icon="shopping-cart"/>
-                      <Badge pill variant="danger" className="mr-5">
-                        {this.state.selectedBooks.length}
-                      </Badge>
-                    </NavItem>
-                    </LinkContainer>      
                 </Fragment>  
                 : <Fragment>
                     <LinkContainer to="/login">
